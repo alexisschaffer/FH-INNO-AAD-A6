@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="app_title">News</string>
+    <string name="reload">Reload</string>
+    <string name="general_error">An error occurred. Please try again later.</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="author">Author</string>
+    <string name="image_url">Image URL</string>
+    <string name="publication_date">Publication date</string>
+    <string name="keywords">Keywords</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="feed_url">Feed URL</string>
+    <string name="show_images">Show images</string>
+    <string name="download_images">Download images</string>
+    <string name="menu">Menu</string>
+    <string name="image_display_yes">Images will be displayed.</string>
+    <string name="image_display_no">Images will not be displayed.</string>
+    <string name="image_download_yes">Images will be downloaded in the background.</string>
+    <string name="image_download_no">Images will not be downloaded in the background.</string>
+    <string name="full_story">Full Story</string>
+</resources>
