@@ -1,5 +1,6 @@
 package at.technikum_wien.polzert.news.activity
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,7 +20,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = ViewModelProvider(this, NewsListViewModelFactory(NewsRepository(applicationContext), UserPreferencesRepository(dataStore)))[NewsListViewModel::class.java]
+        val viewModel = ViewModelProvider(this, NewsListViewModelFactory(this.application,  NewsRepository(applicationContext), UserPreferencesRepository(dataStore)))[NewsListViewModel::class.java]
 
         setContent {
             NewsTheme {

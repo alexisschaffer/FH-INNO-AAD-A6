@@ -1,9 +1,9 @@
 package at.technikum_wien.polzert.news.data.db
 
-import at.technikum_wien.polzert.news.data.NewsItem
-
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import at.technikum_wien.polzert.news.data.NewsItem
+import kotlinx.datetime.Instant
 
 @Dao
 abstract class NewsItemDao {
@@ -11,6 +11,8 @@ abstract class NewsItemDao {
     abstract val newsItems : LiveData<List<NewsItem>>
     @Query("SELECT _id FROM news_item WHERE identifier = :identifier")
     abstract suspend fun getIdForIdentifier(identifier : String) : Long
+    @Query("SELECT * FROM news_item LIMIT 1")
+    abstract suspend fun getFirstNews(): NewsItem?
     @Insert(onConflict = OnConflictStrategy.ABORT)
     abstract suspend fun insert(newsItem: NewsItem): Long
     @Insert(onConflict = OnConflictStrategy.ABORT)
@@ -27,6 +29,8 @@ abstract class NewsItemDao {
     abstract suspend fun delete(newsItem: NewsItem)
     @Query("DELETE FROM news_item")
     abstract suspend fun deleteAll()
+    @Query("DELETE  FROM news_item WHERE publication_date  < :publicationDate")
+    abstract suspend fun deleteOlder(publicationDate : Long)
 
     @Transaction
     open suspend fun updateOrInsertAll(newsItems: List<NewsItem>) {

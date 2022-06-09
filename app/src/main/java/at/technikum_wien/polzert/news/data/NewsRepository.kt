@@ -2,6 +2,7 @@ package at.technikum_wien.polzert.news.data
 
 import android.content.Context
 import at.technikum_wien.polzert.news.data.db.ApplicationDatabase
+import kotlinx.datetime.Instant
 
 class NewsRepository(context: Context) {
     private val newsItemDao by lazy { ApplicationDatabase.getDatabase(context).newsItemDao() }
@@ -17,5 +18,9 @@ class NewsRepository(context: Context) {
 
     suspend fun deleteAll() {
         newsItemDao.deleteAll()
+    }
+
+    suspend fun deleteOlder(oldDate : Long) {
+        newsItemDao.deleteOlder(oldDate)
     }
 }
