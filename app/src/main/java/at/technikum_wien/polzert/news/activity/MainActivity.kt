@@ -11,6 +11,7 @@ import at.technikum_wien.polzert.news.data.NewsRepository
 import at.technikum_wien.polzert.news.settings.UserPreferencesRepository
 import at.technikum_wien.polzert.news.settings.dataStore
 import at.technikum_wien.polzert.news.ui.theme.NewsTheme
+import at.technikum_wien.polzert.news.util.NotificationUtils
 import at.technikum_wien.polzert.news.view.Navigation
 import at.technikum_wien.polzert.news.viewmodels.NewsListViewModel
 import at.technikum_wien.polzert.news.viewmodels.NewsListViewModelFactory
@@ -20,6 +21,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        NotificationUtils.registerNotificationChannel(this)
         val viewModel = ViewModelProvider(this, NewsListViewModelFactory(this.application,  NewsRepository(applicationContext), UserPreferencesRepository(dataStore)))[NewsListViewModel::class.java]
 
         setContent {

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import at.technikum_wien.polzert.news.data.NewsItem
 import at.technikum_wien.polzert.news.viewmodels.NewsListViewModel
 
@@ -22,6 +23,9 @@ fun Navigation(viewModel : NewsListViewModel) {
         }
         composable(
             route = Screen.DetailScreen.route + "/{newsItemIndex}",
+            deepLinks= listOf(
+                navDeepLink { uriPattern = "mynews://show/{newsItemIndex}" }
+            ),
             arguments = listOf(
                 navArgument(name = "newsItemIndex") {
                     type = NavType.IntType

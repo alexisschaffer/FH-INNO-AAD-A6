@@ -2,8 +2,13 @@ package at.technikum_wien.polzert.news.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import at.technikum_wien.polzert.news.MyApp
 import at.technikum_wien.polzert.news.data.NewsItem
-import kotlinx.datetime.Instant
+import at.technikum_wien.polzert.news.util.NotificationUtils
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import java.io.File
 
 @Dao
 abstract class NewsItemDao {
@@ -40,7 +45,17 @@ abstract class NewsItemDao {
             if (insertResult[i] == -1L) {
                 newsItems[i].id = getIdForIdentifier(newsItems[i].identifier)
                 updateList.add(newsItems[i])
+            } else {
+                val newsId : Long = getIdForIdentifier(newsItems[i].identifier)
+                val imagePath : String = Glide.with(MyApp.applicationContext())
+                    .downloadOnly()
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .load(newsItems[i].imageUrl.toString())
+                    .submit()
+                    .get().absolutePath
+                NotificationUtils.createNotification(MyApp.applicationContext(), newsId.toInt() ,newsItems[i].title, imagePath)
             }
+
         }
         if (updateList.isNotEmpty()) {
             update(updateList)
